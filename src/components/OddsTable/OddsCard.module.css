@@ -1,0 +1,440 @@
+
+/* components/OddsTable/OddsCard.module.css */
+
+.card {
+  background-color: var(--color-background-secondary); /* Fundo dos cards (tema escuro: #333332, tema claro: #dee0e3) */
+  border: 1px solid var(--color-border); /* Borda dos cards (tema escuro: rgba(255,255,255,0.08), tema claro: #8c8c94) */
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 10px var(--color-shadow-base);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px var(--color-shadow-hover);
+  /* Verde de destaque com transparência, que muda com o tema */
+  border-color: rgba(182, 238, 34, 0.3); /* Default (Dark Theme) */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.eventInfo {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.eventTeam {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.vsText {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin: 0 6px;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Estilo para o temporizador - Foco vibrante com mudança de cor */
+.time {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px; /* Um pouco mais de padding para o fundo animado */
+  border-radius: 6px; /* Borda mais arredondada */
+  font-weight: 600; /* Mais negrito */
+  font-size: 0.95rem; /* Levemente maior */
+  
+  /* Gradiente animado */
+  background: linear-gradient(90deg, var(--color-accent-primary) 0%, var(--color-accent-secondary) 50%, var(--color-accent-primary) 100%);
+  background-size: 200% auto; /* Faz o gradiente ser o dobro da largura, permitindo o movimento */
+  color: var(--color-background-primary); /* Texto em cor de fundo principal para alto contraste */
+  animation: gradientShift 4s linear infinite; /* Animação contínua */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Sombra para destacá-lo */
+  transition: box-shadow 0.2s ease;
+}
+
+.time .icon {
+  width: 17px; /* Levemente maior */
+  height: 17px;
+  margin-right: 6px; /* Mais espaço */
+  fill: var(--color-background-primary); /* Ícone com a mesma cor do texto para contraste */
+}
+
+/* Animação do gradiente para o temporizador */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.shareButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.shareButton:hover {
+  background-color: rgba(182, 238, 34, 0.1); /* Verde de destaque escuro com transparência */
+}
+
+.shareButton .icon {
+  fill: var(--color-text-secondary);
+  width: 18px;
+  height: 18px;
+}
+
+.matchInfo {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 8px;
+}
+
+.detailsList {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+
+.detailsList li {
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+  position: relative;
+  padding-left: 18px;
+  line-height: 1.4;
+}
+
+.detailsList li::before {
+  content: '•';
+  color: var(--color-accent-primary); /* Verde de destaque (muda com o tema) */
+  font-size: 1.1em;
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 1;
+}
+
+.oddsContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  margin-bottom: 12px;
+}
+
+.oldOddValue {
+  background-color: var(--color-input-background-subtle);
+  color: var(--color-old-odd-text);
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 5px 9px;
+  border-radius: 4px;
+  text-decoration: line-through;
+  text-decoration-color: var(--color-old-odd-line);
+}
+
+.bestOddValue {
+  background-color: var(--color-accent-primary); /* Verde de destaque (muda com o tema) */
+  color: var(--color-background-primary); /* Cor do fundo principal do tema atual */
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+  min-width: 70px;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(182, 238, 34, 0.5); /* Sombra com verde de destaque escuro */
+}
+
+.bestOddValue:hover {
+  transform: scale(1.02);
+  background-color: #9cd41e; /* Um pouco mais escuro que secondary-dark */
+  box-shadow: 0 0 15px rgba(182, 238, 34, 0.7);
+}
+
+.bestOddSpark {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 0.8rem;
+  line-height: 1;
+  animation: sparkFadeIn 0.5s ease-out;
+  color: var(--color-background-primary); /* Cor do fundo principal do tema atual */
+}
+
+@keyframes sparkFadeIn {
+  from { opacity: 0; transform: scale(0.5) rotate(-30deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.qualityContainer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 30%;
+  margin-left: 0;
+}
+
+.qualityText {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: capitalize;
+  letter-spacing: 0;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.qualityBar {
+  background: var(--color-quality-bar-bg);
+  height: 8px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.qualityFill {
+  height: 100%;
+  background: linear-gradient(to right, var(--color-accent-secondary), var(--color-accent-primary)); /* Verde de destaque (muda com o tema) */
+  border-radius: 3px;
+  transition: width 0.5s ease-out;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.bookmakerLink {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  flex-grow: 1;
+  justify-content: flex-start;
+}
+
+.bookmakerLogo {
+  max-height: 100%;
+  max-width: 90px;
+  object-fit: contain;
+  filter: none;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.bookmakerLogo:hover {
+  opacity: 0.8;
+}
+
+.actionButton {
+  background-color: var(--color-accent-primary); /* Verde de destaque (muda com o tema) */
+  color: var(--color-background-primary); /* Cor do fundo principal do tema atual */
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 7px rgba(182, 238, 34, 0.3);
+}
+
+.actionButton:hover {
+  background-color: #9cd41e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(182, 238, 34, 0.5);
+}
+
+/* --- ESTILOS PARA O TEMA CLARO DENTRO DOS CARDS --- */
+body.light-theme .card {
+  background-color: var(--color-background-secondary); /* #dee0e3 */
+  border-color: var(--color-border); /* #8c8c94 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .card:hover {
+  border-color: rgba(175, 225, 40, 0.3); /* Verde de destaque claro com transparência */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .eventTeam,
+body.light-theme .detailsList li {
+  color: var(--color-text-primary);
+}
+
+body.light-theme .vsText,
+/* .time (no light theme) agora é controlado pelo gradiente */
+body.light-theme .shareButton .icon,
+body.light-theme .matchInfo,
+body.light-theme .qualityText {
+  color: var(--color-text-secondary);
+  fill: var(--color-text-secondary);
+}
+
+/* Ajustes específicos para o temporizador no tema claro */
+body.light-theme .time {
+  background: linear-gradient(90deg, var(--color-accent-primary) 0%, var(--color-accent-secondary) 50%, var(--color-accent-primary) 100%);
+  color: var(--color-text-primary); /* CORRIGIDO: Texto em cor primária do tema claro (preto) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Sombra mais suave */
+}
+
+body.light-theme .time .icon {
+  fill: var(--color-text-primary); /* CORRIGIDO: Ícone com a cor primária do tema claro (preto) */
+}
+
+
+body.light-theme .detailsList li::before {
+  color: var(--color-accent-primary);
+}
+
+body.light-theme .oldOddValue {
+  background-color: var(--color-input-background-subtle);
+  color: var(--color-old-odd-text);
+  text-decoration-color: var(--color-old-odd-line);
+}
+
+body.light-theme .bestOddValue {
+  background-color: var(--color-accent-primary);
+  color: var(--color-background-primary);
+  box-shadow: 0 0 10px rgba(175, 225, 40, 0.5);
+}
+
+body.light-theme .bestOddValue:hover {
+  background-color: #9bd228;
+  box-shadow: 0 0 15px rgba(175, 225, 40, 0.7);
+}
+
+body.light-theme .bestOddSpark {
+  color: var(--color-background-primary);
+}
+
+body.light-theme .qualityBar {
+  background: var(--color-quality-bar-bg);
+  border-color: var(--color-border);
+}
+
+body.light-theme .qualityFill {
+  background: linear-gradient(to right, var(--color-accent-secondary), var(--color-accent-primary));
+}
+
+body.light-theme .actionButton {
+  background-color: var(--color-accent-primary);
+  color: var(--color-background-primary);
+  box-shadow: 0 2px 7px rgba(175, 225, 40, 0.3);
+}
+
+body.light-theme .actionButton:hover {
+  background-color: #9bd228;
+  box-shadow: 0 4-5px 10px rgba(175, 225, 40, 0.5);
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+  .card {
+    padding: 12px;
+    gap: 8px;
+  }
+  .eventTeam {
+    font-size: 1.1rem;
+  }
+  .vsText {
+    font-size: 0.7rem;
+  }
+  .time, .matchInfo, .detailsList li, .oldOddValue, .actionButton {
+    font-size: 0.85rem;
+  }
+  .qualityText {
+    font-size: 0.9rem;
+  }
+  .time .icon, .shareButton .icon {
+    width: 15px;
+    height: 15px;
+  }
+  .bestOddValue {
+    padding: 7px 12px;
+    font-size: 1.3rem;
+    min-width: 60px;
+  }
+  .bestOddSpark {
+    font-size: 0.7rem;
+  }
+  .bookmakerLink {
+    height: 25px;
+  }
+  .bookmakerLogo {
+    max-width: 70px;
+  }
+  .qualityContainer {
+    width: 40%;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 10px;
+    gap: 8px;
+  }
+  .eventTeam {
+    font-size: 1rem;
+  }
+  .vsText {
+    font-size: 0.75rem;
+  }
+  .time, .matchInfo, .detailsList li, .oldOddValue, .actionButton {
+    font-size: 0.8rem;
+  }
+  .qualityText {
+    font-size: 0.85rem;
+  }
+  .bestOddValue {
+    padding: 6px 10px;
+    font-size: 1.1rem;
+    min-width: 50px;
+  }
+  .bestOddSpark {
+    font-size: 0.6rem;
+  }
+  .qualityContainer {
+    width: 50%;
+  }
+}
