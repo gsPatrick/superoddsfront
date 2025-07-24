@@ -12,7 +12,7 @@ export const BOOKMAKER_DATA = {
     },
     'mc_games': { 
         name: 'McGames', 
-        logoUrl: 'blob:https://imgur.com/251d7ea7-e996-496b-8f66-ed9f12939eb9' // Substitua pelo seu logo
+        logoUrl: 'https://i.imgur.com/UUOASPp.png' // Substitua pelo seu logo
     },
     'betano': { 
         name: 'Betano', 
