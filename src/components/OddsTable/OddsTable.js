@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import OddsCard from './OddsCard';
 import styles from './OddsTable.module.css';
-import { BOOKMAKER_DATA } from '../../constants/bookmakers'; // Importa os dados dos logos
+import { BOOKMAKER_DATA } from '../../constants/bookmakers';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -27,22 +27,15 @@ const OddsTable = ({ selectedBookmaker, oddRange, sortBy, hideExpired }) => {
         
         const genericKeywords = ['odds melhoradas', 'super odds turbinadas', 'sim'];
 
-        // MUDANÇA: Função para determinar o texto de qualidade
         const getQualityLabel = (original, boosted) => {
           const originalFloat = parseFloat(original);
           const boostedFloat = parseFloat(boosted);
           if (!originalFloat || !boostedFloat || boostedFloat <= originalFloat) {
-            return 'Super Odd'; // Fallback
+            return 'Super Odd';
           }
-
-          const increase = ((boostedFloat / originalFloat) - 1) * 100; // Calcula o aumento percentual
-
-          if (increase >= 30) {
-            return 'Incrível';
-          }
-          if (increase >= 15) {
-            return 'Ótima';
-          }
+          const increase = ((boostedFloat / originalFloat) - 1) * 100;
+          if (increase >= 30) return 'Incrível';
+          if (increase >= 15) return 'Ótima';
           return 'Boa';
         };
 
@@ -65,12 +58,12 @@ const OddsTable = ({ selectedBookmaker, oddRange, sortBy, hideExpired }) => {
             details: detailsList,
             oldOdd: odd.originalOdd,
             bestOdd: odd.boostedOdd,
-            // MUDANÇA: Chama a função para obter o texto de qualidade dinâmico
-            quality: getQualityLabel(odd.originalOdd, odd.boostedOdd), 
+            quality: getQualityLabel(odd.originalOdd, odd.boostedOdd),
             qualityRating: Math.min(95, (odd.boostedOdd / odd.originalOdd - 1) * 200 + 70),
             bookmakerLogo: BOOKMAKER_DATA[odd.providerId]?.logoUrl || '',
             bookmakerName: odd.provider,
-            bookmakerLink: odd.link,
+            // PONTO CRÍTICO: Garante que o link da API seja passado para o card
+            bookmakerLink: odd.link, 
             eventDate: new Date(odd.gameTimestamp),
             expireDate: new Date(odd.expireAtTimestamp),
           };
@@ -90,8 +83,6 @@ const OddsTable = ({ selectedBookmaker, oddRange, sortBy, hideExpired }) => {
 
   useEffect(() => {
     let updatedOdds = [...allOdds];
-
-    updatedOdds.sort((a, b) => a.expireDate - b.expireDate);
 
     if (selectedBookmaker) {
       updatedOdds = updatedOdds.filter(odd => odd.bookmakerName === selectedBookmaker);

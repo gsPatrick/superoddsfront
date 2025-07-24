@@ -40,11 +40,11 @@ body.light-theme {
   --color-accent-primary: #afe128; /* Verde de destaque para tema claro */
   --color-accent-secondary: #ffd95c; /* Amarelo/laranja para o gradiente da barra de qualidade no tema claro */
 
-  --color-text-primary: #1f2120; /* Texto principal em tema claro */
+  --color-text-primary: #000000; /* Texto principal em tema claro */
   --color-text-secondary: rgba(0, 0, 0, 0.7); /* Texto secundário (cinza escuro) */
   --color-text-tertiary: rgba(0, 0, 0, 0.5); /* Texto terciário (mais apagado) */
 
-  --color-border: #8c8c94; /* Borda para cards E Fundo do header/botões no tema claro */
+  --color-border: #8c8c9  4; /* Borda para cards E Fundo do header/botões no tema claro */
   --color-input-background-subtle: rgba(0, 0, 0, 0.05); /* Fundo de inputs discretos claros */
   --color-old-odd-text: rgba(200, 50, 50, 0.8); /* Vermelho mais escuro no tema claro */
   --color-old-odd-line: rgba(200, 50, 50, 0.8); /* Linha vermelha mais escura no tema claro */

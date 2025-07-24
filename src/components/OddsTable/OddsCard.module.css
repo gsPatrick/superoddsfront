@@ -1,8 +1,8 @@
 /* components/OddsTable/OddsCard.module.css */
 
 .card {
-  background-color: var(--color-background-secondary); /* Fundo dos cards (tema escuro: #333332, tema claro: #dee0e3) */
-  border: 1px solid var(--color-border); /* Borda dos cards (tema escuro: rgba(255,255,255,0.08), tema claro: #8c8c94) */
+  background-color: var(--color-background-secondary);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 16px;
   display: flex;
@@ -17,8 +17,7 @@
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 15px var(--color-shadow-hover);
-  /* Verde de destaque com transparência, que muda com o tema */
-  border-color: rgba(182, 238, 34, 0.3); /* Default (Dark Theme) */
+  border-color: rgba(182, 238, 34, 0.3);
 }
 
 .header {
@@ -55,50 +54,39 @@
   flex-shrink: 0;
 }
 
-/* Estilo para o temporizador - Foco vibrante com mudança de cor */
 .time {
   display: flex;
   align-items: center;
-  padding: 6px 10px; /* Um pouco mais de padding para o fundo animado */
-  border-radius: 6px; /* Borda mais arredondada */
-  font-weight: 600; /* Mais negrito */
-  font-size: 0.95rem; /* Levemente maior */
-  
-  /* Gradiente animado */
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
   background: linear-gradient(90deg, var(--color-accent-primary) 0%, var(--color-accent-secondary) 50%, var(--color-accent-primary) 100%);
-  background-size: 200% auto; /* Faz o gradiente ser o dobro da largura, permitindo o movimento */
-  color: var(--color-background-primary); /* Texto em cor de fundo principal para alto contraste */
-  animation: gradientShift 4s linear infinite; /* Animação contínua */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Sombra para destacá-lo */
+  background-size: 200% auto;
+  color:black;
+  animation: gradientShift 4s linear infinite;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.2s ease;
 }
 
 .time .icon {
-  width: 17px; /* Levemente maior */
+  width: 17px;
   height: 17px;
-  margin-right: 6px; /* Mais espaço */
-  fill: var(--color-background-primary); /* Ícone com a mesma cor do texto para contraste */
+  margin-right: 6px;
+  fill: black;
 }
 
-/* Novo estilo para a tag "Expirado" */
 .time.expired {
-  background: var(--color-expired-bg);
-  color: var(--color-expired-text);
-  animation: none; /* Remove a animação do gradiente */
+  background: black;
+  color: black;
+  animation: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Animação do gradiente para o temporizador */
 @keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .shareButton {
@@ -114,7 +102,7 @@
 }
 
 .shareButton:hover {
-  background-color: rgba(182, 238, 34, 0.1); /* Verde de destaque escuro com transparência */
+  background-color: rgba(182, 238, 34, 0.1);
 }
 
 .shareButton .icon {
@@ -146,7 +134,7 @@
 
 .detailsList li::before {
   content: '•';
-  color: var(--color-accent-primary); /* Verde de destaque (muda com o tema) */
+  color: var(--color-accent-primary);
   font-size: 1.1em;
   position: absolute;
   left: 0;
@@ -175,8 +163,8 @@
 }
 
 .bestOddValue {
-  background-color: var(--color-accent-primary); /* Verde de destaque (muda com o tema) */
-  color: var(--color-background-primary); /* Cor do fundo principal do tema atual */
+  background-color: var(--color-accent-primary);
+  color: black;
   padding: 8px 15px;
   border-radius: 4px;
   font-weight: 700;
@@ -189,12 +177,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 10px rgba(182, 238, 34, 0.5); /* Sombra com verde de destaque escuro */
+  box-shadow: 0 0 10px rgba(182, 238, 34, 0.5);
 }
 
 .bestOddValue:hover {
   transform: scale(1.02);
-  background-color: #9cd41e; /* Um pouco mais escuro que secondary-dark */
+  background-color: #9cd41e;
   box-shadow: 0 0 15px rgba(182, 238, 34, 0.7);
 }
 
@@ -205,7 +193,7 @@
   font-size: 0.8rem;
   line-height: 1;
   animation: sparkFadeIn 0.5s ease-out;
-  color: var(--color-background-primary); /* Cor do fundo principal do tema atual */
+  color: var(--color-background-primary);
 }
 
 @keyframes sparkFadeIn {
@@ -240,7 +228,7 @@
 
 .qualityFill {
   height: 100%;
-  background: linear-gradient(to right, var(--color-accent-secondary), var(--color-accent-primary)); /* Verde de destaque (muda com o tema) */
+  background: linear-gradient(to right, var(--color-accent-secondary), var(--color-accent-primary));
   border-radius: 3px;
   transition: width 0.5s ease-out;
 }
@@ -275,8 +263,8 @@
 }
 
 .actionButton {
-  background-color: var(--color-accent-primary); /* Verde de destaque (muda com o tema) */
-  color: var(--color-background-primary); /* Cor do fundo principal do tema atual */
+  background-color: var(--color-accent-primary);
+  color: black;
   padding: 9px 18px;
   border-radius: 8px;
   font-weight: 600;
@@ -294,46 +282,43 @@
 
 /* --- ESTILOS PARA O TEMA CLARO DENTRO DOS CARDS --- */
 body.light-theme .card {
-  background-color: var(--color-background-secondary); /* #dee0e3 */
-  border-color: var(--color-border); /* #8c8c94 */
+  background-color: var(--color-background-secondary);
+  border-color: var(--color-border);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 body.light-theme .card:hover {
-  border-color: rgba(175, 225, 40, 0.3); /* Verde de destaque claro com transparência */
+  border-color: rgba(175, 225, 40, 0.3);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 body.light-theme .eventTeam,
 body.light-theme .detailsList li {
-  color: var(--color-text-primary);
+  color: #1f2120;
 }
 
 body.light-theme .vsText,
 body.light-theme .shareButton .icon,
 body.light-theme .matchInfo,
 body.light-theme .qualityText {
-  color: var(--color-text-secondary);
-  fill: var(--color-text-secondary);
+  color: rgba(0, 0, 0, 0.7);
+  fill: rgba(0, 0, 0, 0.7);
 }
 
-/* Ajustes específicos para o temporizador no tema claro */
 body.light-theme .time {
   background: linear-gradient(90deg, var(--color-accent-primary) 0%, var(--color-accent-secondary) 50%, var(--color-accent-primary) 100%);
-  color: var(--color-text-primary); /* CORRIGIDO: Texto em cor primária do tema claro (preto) */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Sombra mais suave */
+  color: #1f2120 !important; /* MUDANÇA: Cor forçada com !important */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Garante que o estilo de expirado funcione no tema claro */
 body.light-theme .time.expired {
   background: var(--color-expired-bg);
-  color: var(--color-expired-text);
+  color: #ffffff !important; /* MUDANÇA: Expirado continua branco para contraste */
 }
 
 body.light-theme .time .icon {
-  fill: var(--color-text-primary); /* CORRIGIDO: Ícone com a cor primária do tema claro (preto) */
+  fill: #1f2120 !important; /* MUDANÇA: Cor do ícone forçada com !important */
 }
-
 
 body.light-theme .detailsList li::before {
   color: var(--color-accent-primary);
@@ -347,7 +332,7 @@ body.light-theme .oldOddValue {
 
 body.light-theme .bestOddValue {
   background-color: var(--color-accent-primary);
-  color: var(--color-background-primary);
+  color: #1f2120 !important; /* MUDANÇA: Cor forçada com !important */
   box-shadow: 0 0 10px rgba(175, 225, 40, 0.5);
 }
 
@@ -357,7 +342,7 @@ body.light-theme .bestOddValue:hover {
 }
 
 body.light-theme .bestOddSpark {
-  color: var(--color-background-primary);
+  color: #1f2120 !important; /* MUDANÇA: Cor forçada com !important */
 }
 
 body.light-theme .qualityBar {
@@ -371,7 +356,7 @@ body.light-theme .qualityFill {
 
 body.light-theme .actionButton {
   background-color: var(--color-accent-primary);
-  color: var(--color-background-primary);
+  color: #1f2120 !important; /* MUDANÇA: Cor forçada com !important */
   box-shadow: 0 2px 7px rgba(175, 225, 40, 0.3);
 }
 
