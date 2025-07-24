@@ -1,4 +1,3 @@
-
 /* components/OddsTable/OddsCard.module.css */
 
 .card {
@@ -81,6 +80,14 @@
   fill: var(--color-background-primary); /* Ícone com a mesma cor do texto para contraste */
 }
 
+/* Novo estilo para a tag "Expirado" */
+.time.expired {
+  background: var(--color-expired-bg);
+  color: var(--color-expired-text);
+  animation: none; /* Remove a animação do gradiente */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 /* Animação do gradiente para o temporizador */
 @keyframes gradientShift {
   0% {
@@ -93,7 +100,6 @@
     background-position: 0% 50%;
   }
 }
-
 
 .shareButton {
   background: none;
@@ -249,14 +255,15 @@
 .bookmakerLink {
   display: flex;
   align-items: center;
-  height: 30px;
+  height: 40px; 
   flex-grow: 1;
   justify-content: flex-start;
 }
 
 .bookmakerLogo {
-  max-height: 100%;
-  max-width: 90px;
+  height: 38px;
+  width: auto;
+  max-width: 140px;
   object-fit: contain;
   filter: none;
   opacity: 1;
@@ -303,7 +310,6 @@ body.light-theme .detailsList li {
 }
 
 body.light-theme .vsText,
-/* .time (no light theme) agora é controlado pelo gradiente */
 body.light-theme .shareButton .icon,
 body.light-theme .matchInfo,
 body.light-theme .qualityText {
@@ -316,6 +322,12 @@ body.light-theme .time {
   background: linear-gradient(90deg, var(--color-accent-primary) 0%, var(--color-accent-secondary) 50%, var(--color-accent-primary) 100%);
   color: var(--color-text-primary); /* CORRIGIDO: Texto em cor primária do tema claro (preto) */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Sombra mais suave */
+}
+
+/* Garante que o estilo de expirado funcione no tema claro */
+body.light-theme .time.expired {
+  background: var(--color-expired-bg);
+  color: var(--color-expired-text);
 }
 
 body.light-theme .time .icon {
@@ -399,10 +411,11 @@ body.light-theme .actionButton:hover {
     font-size: 0.7rem;
   }
   .bookmakerLink {
-    height: 25px;
+    height: 35px;
   }
   .bookmakerLogo {
-    max-width: 70px;
+    height: 30px;
+    max-width: 110px;
   }
   .qualityContainer {
     width: 40%;

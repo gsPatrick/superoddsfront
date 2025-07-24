@@ -1,16 +1,17 @@
-// components/OddsTable/OddsCard.js
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './OddsCard.module.css';
-
-// Importar ícones do react-icons
-import { FaRegClock, FaShareAlt } from 'react-icons/fa'; // Exemplo de ícones do Font Awesome
+import { FaRegClock, FaShareAlt } from 'react-icons/fa';
 
 const OddsCard = ({ oddData }) => {
+  const [timeLeft, setTimeLeft] = useState('');
+  // MUDANÇA: Novo estado para controlar se a odd expirou
+  const [isExpired, setIsExpired] = useState(false);
+
   const {
     event,
-    time,
+    time: expireTimestamp,
     shareLink,
     matchInfo,
     details,
@@ -23,19 +24,68 @@ const OddsCard = ({ oddData }) => {
     bookmakerLink,
   } = oddData;
 
-  const [team1, team2] = event.split(' vs. ');
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const expirationDate = new Date(expireTimestamp);
+      const difference = expirationDate - now;
+
+      if (difference > 0) {
+        setIsExpired(false); // Garante que o estado é 'não expirado'
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / 1000 / 60) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
+
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      }
+      
+      setIsExpired(true); // Se o tempo acabou, define como expirado
+      return 'Expirado';
+    };
+
+    // Define o estado inicial assim que o componente monta
+    setTimeLeft(calculateTimeLeft());
+
+    const interval = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [expireTimestamp]);
+
+
+  const getTeamNames = (eventName) => {
+    if (!eventName) return ['Evento', ''];
+    const separatorRegex = /\s+(?:vs\.?|-)\s+/i;
+    const teams = eventName.trim().split(separatorRegex);
+
+    if (teams.length >= 2) {
+      return [teams[0].trim(), teams[1].trim()];
+    }
+    if (eventName.includes('•')) {
+        const mainEvent = eventName.split('•')[0];
+        const multiTeams = mainEvent.trim().split(separatorRegex);
+        if(multiTeams.length >= 2) return [multiTeams[0].trim(), multiTeams[1].trim()];
+    }
+
+    return [eventName.trim(), ''];
+  };
+
+  const [team1, team2] = getTeamNames(event);
 
   return (
     <div className={styles.card}>
       <div className={styles.header}>
         <div className={styles.eventInfo}>
           <h2 className={styles.eventTeam}>{team1}</h2>
-          <span className={styles.vsText}>vs.</span>
-          <h2 className={styles.eventTeam}>{team2}</h2>
+          {team2 && <span className={styles.vsText}>vs.</span>}
+          {team2 && <h2 className={styles.eventTeam}>{team2}</h2>}
         </div>
         <div className={styles.headerActions}>
-          {/* Substituição dos ícones */}
-          <span className={styles.time}><FaRegClock className={styles.icon} /> {time}</span>
+          {/* MUDANÇA: Adiciona classe 'expired' e remove o ícone condicionalmente */}
+          <span className={`${styles.time} ${isExpired ? styles.expired : ''}`}>
+            {!isExpired && <FaRegClock className={styles.icon} />} {timeLeft}
+          </span>
           <a href={shareLink} target="_blank" rel="noopener noreferrer" className={styles.shareButton} aria-label="Compartilhar evento">
             <FaShareAlt className={styles.icon} />
           </a>
@@ -51,16 +101,10 @@ const OddsCard = ({ oddData }) => {
       </ul>
 
       <div className={styles.oddsContainer}>
-        {oldOdd && <span className={styles.oldOddValue}>{oldOdd}</span>}
+        {oldOdd && <span className={styles.oldOddValue}>{parseFloat(oldOdd).toFixed(2)}</span>}
         {bestOdd && (
-          <a
-            href={bookmakerLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.bestOddValue}
-            aria-label={`Melhor odd de ${bestOdd} na ${bookmakerName}`}
-          >
-            {bestOdd}
+          <a href={bookmakerLink} target="_blank" rel="noopener noreferrer" className={styles.bestOddValue}>
+            {parseFloat(bestOdd).toFixed(2)}
             <span className={styles.bestOddSpark}>⚡</span>
           </a>
         )}
@@ -69,10 +113,7 @@ const OddsCard = ({ oddData }) => {
       <div className={styles.qualityContainer}>
         <span className={styles.qualityText}>{quality}</span>
         <div className={styles.qualityBar}>
-          <div
-            className={styles.qualityFill}
-            style={{ width: `${qualityRating}%` }}
-          ></div>
+          <div className={styles.qualityFill} style={{ width: `${qualityRating}%` }}></div>
         </div>
       </div>
 
@@ -81,7 +122,7 @@ const OddsCard = ({ oddData }) => {
           <img src={bookmakerLogo} alt={`${bookmakerName} Logo`} className={styles.bookmakerLogo} />
         </a>
         <a href={bookmakerLink} target="_blank" rel="noopener noreferrer" className={styles.actionButton}>
-          Clique aqui
+          Apostar Agora
         </a>
       </div>
     </div>

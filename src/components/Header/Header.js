@@ -1,11 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React,  { useState, useEffect } from 'react';
 import styles from './Header.module.css';
-
-// Importar ícones do react-icons
 import { BsSunFill, BsMoonFill } from 'react-icons/bs';
-import { FaFilter, FaTimes } from 'react-icons/fa'; // Ícones para o novo menu
+import { FaFilter, FaTimes } from 'react-icons/fa';
 
 const Header = ({
   selectedBookmaker,
@@ -18,57 +16,56 @@ const Header = ({
   setHideExpired,
 }) => {
   const [scrolled, setScrolled] = useState(false);
-  const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false); // Estado para controlar o menu de filtros
+  const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
+  const [bookmakers, setBookmakers] = useState([]);
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') || 'dark';
     }
     return 'dark';
   });
+  
+  useEffect(() => {
+    const fetchProviders = async () => {
+      try {
+        const response = await fetch('https://superodds-backend.zjbwih.easypanel.host/api/super-odds/providers');
+        const data = await response.json();
+        if (data.data) {
+          setBookmakers(data.data);
+        }
+      } catch (error) {
+        console.error("Falha ao buscar provedores:", error);
+      }
+    };
+    fetchProviders();
+  }, []);
 
-  // Efeito para aplicar o tema e salvar no localStorage
   useEffect(() => {
     document.body.classList.remove('dark-theme', 'light-theme');
     document.body.classList.add(`${theme}-theme`);
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  // Efeito para detectar o scroll da página
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
-  // Efeito para travar o scroll do body quando o menu de filtros estiver aberto
   useEffect(() => {
-    if (isFilterMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    // Cleanup function
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
+    document.body.style.overflow = isFilterMenuOpen ? 'hidden' : 'auto';
+    return () => { document.body.style.overflow = 'auto'; };
   }, [isFilterMenuOpen]);
 
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
-  };
-
-  const toggleFilterMenu = () => {
-    setIsFilterMenuOpen(!isFilterMenuOpen);
-  };
+  const toggleTheme = () => setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
+  const toggleFilterMenu = () => setIsFilterMenuOpen(!isFilterMenuOpen);
 
   const handleClearFilters = () => {
     setSelectedBookmaker('');
-    setOddRange(20); // Valor máximo padrão
+    setOddRange(20);
     setSortBy('');
-    setHideExpired(false);
+    // MUDANÇA: Alterado para 'false' para que odds expiradas apareçam ao limpar filtros
+    setHideExpired(false); 
   };
 
   return (
@@ -77,7 +74,6 @@ const Header = ({
         <div className={styles.headerContent}>
           <div className={styles.branding}>
             <h1 className={styles.title}>Super Odds</h1>
-            {/* Opcional: Adicionar um logo aqui */}
           </div>
           
           <div className={styles.headerActions}>
@@ -92,13 +88,8 @@ const Header = ({
         </div>
       </header>
 
-      {/* Overlay do Menu de Filtros */}
-      <div 
-        className={`${styles.filterMenuOverlay} ${isFilterMenuOpen ? styles.open : ''}`}
-        onClick={toggleFilterMenu}
-      ></div>
-
-      {/* Container do Menu de Filtros (Off-canvas) */}
+      <div className={`${styles.filterMenuOverlay} ${isFilterMenuOpen ? styles.open : ''}`} onClick={toggleFilterMenu}></div>
+      
       <div className={`${styles.filtersContainer} ${isFilterMenuOpen ? styles.open : ''}`}>
         <div className={styles.filterMenuHeader}>
           <h2>Filtros</h2>
@@ -112,16 +103,9 @@ const Header = ({
             <label htmlFor="casaAposta" className={styles.filterLabel}>Casa de apostas</label>
             <select id="casaAposta" className={styles.filterSelect} value={selectedBookmaker} onChange={(e) => setSelectedBookmaker(e.target.value)}>
               <option value="">Todas</option>
-              <option value="Bet365">Bet365</option>
-              <option value="Superbet">Superbet</option>
-              <option value="McGames">McGames</option>
-              <option value="Betano">Betano</option>
-              <option value="Betfair">Betfair</option>
-              <option value="KTO">KTO</option>
-              <option value="Novibet">Novibet</option>
-              <option value="BetMGM">BetMGM</option>
-              <option value="Betsson">Betsson</option>
-              <option value="EsportivaBet">EsportivaBet</option>
+              {bookmakers.map(bm => (
+                <option key={bm.id} value={bm.name}>{bm.name}</option>
+              ))}
             </select>
           </div>
 
@@ -136,10 +120,9 @@ const Header = ({
           <div className={styles.filterGroup}>
             <label htmlFor="ordenarPor" className={styles.filterLabel}>Ordenar por</label>
             <select id="ordenarPor" className={styles.filterSelect} value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-              <option value="">Padrão</option>
+              <option value="">Padrão (Expira em breve)</option>
               <option value="maiorOdd">Maior Odd</option>
               <option value="proximoEvento">Próximo Evento</option>
-              <option value="casaPopular">Casa Popular</option>
             </select>
           </div>
 

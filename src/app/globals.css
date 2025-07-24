@@ -23,6 +23,10 @@
   --color-quality-bar-bg: linear-gradient(to right, #41413f, #2e2e2d); /* Fundo da barra de qualidade */
   --color-shadow-base: rgba(0, 0, 0, 0.2);
   --color-shadow-hover: rgba(0, 0, 0, 0.3);
+
+  /* MUDANÇA: Novas cores para a tag "Expirado" */
+  --color-expired-bg: #e54848;
+  --color-expired-text: #ffffff;
 }
 
 /* Variáveis de Cor - Tema Claro (aplicadas quando body.light-theme) */
@@ -47,6 +51,10 @@ body.light-theme {
   --color-quality-bar-bg: linear-gradient(to right, #c0c2c3, #b2b4b5); /* Fundo da barra de qualidade clara */
   --color-shadow-base: rgba(0, 0, 0, 0.1);
   --color-shadow-hover: rgba(0, 0, 0, 0.2);
+
+  /* MUDANÇA: Novas cores para a tag "Expirado" no tema claro */
+  --color-expired-bg: #d9534f;
+  --color-expired-text: #ffffff;
 }
 
 /* Reset Básico de CSS */

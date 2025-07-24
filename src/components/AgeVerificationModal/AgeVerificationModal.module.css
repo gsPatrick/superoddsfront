@@ -4,67 +4,90 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro com transparência */
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Garante que fique acima de tudo */
+  z-index: 1000;
   backdrop-filter: blur(5px);
   animation: fadeIn 0.3s ease-out forwards;
 }
 
 .modal {
-  background-color: var(--color-background-secondary); /* Fundo do modal (tema escuro: #333332, tema claro: #dee0e3) */
-  color: var(--color-text-primary); /* Texto principal (tema escuro: #e1e3e4, tema claro: #1f2120) */
-  padding: 30px;
+  background-color: var(--color-background-secondary);
+  color: var(--color-text-primary);
+  padding: 40px 30px; /* Mais padding vertical */
   border-radius: 12px;
-  max-width: 500px;
+  max-width: 420px; /* Um pouco mais estreito */
   width: 90%;
   text-align: center;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center; /* Centraliza itens */
+  gap: 25px; /* Espaçamento entre logo, texto e botões */
   animation: slideIn 0.4s ease-out forwards;
 }
 
-.title {
+/* Estilo para o logo */
+.logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 10px; /* Espaço abaixo do logo */
+}
+
+/* Estilo para a pergunta principal */
+.question {
   font-size: 1.8rem;
   font-weight: 700;
-  color: var(--color-accent-primary); /* Verde de destaque */
-  margin-bottom: 10px;
+  color: var(--color-text-primary);
+  line-height: 1.3;
 }
 
-.message {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: var(--color-text-secondary); /* Texto secundário */
+/* Container para os botões */
+.buttonContainer {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  margin-top: 20px;
 }
 
-.disclaimer {
-  font-size: 0.9rem;
-  color: var(--color-text-tertiary); /* Texto terciário (mais apagado) */
-  margin-top: 10px;
-}
-
-.confirmButton {
-  background-color: var(--color-accent-primary); /* Verde de destaque */
-  color: var(--color-background-primary); /* Cor do fundo principal do tema atual */
-  padding: 12px 25px;
-  border-radius: 8px;
+/* Estilo base para ambos os botões */
+.primaryButton,
+.secondaryButton {
+  flex: 1; /* Faz os botões dividirem o espaço igualmente */
+  padding: 14px 20px;
   font-size: 1.1rem;
   font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  margin-top: 20px;
-  border: none;
-  box-shadow: 0 3px 10px rgba(182, 238, 34, 0.4); /* Sombra com verde de destaque */
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
 }
 
-.confirmButton:hover {
-  background-color: #9cd41e; /* Um pouco mais escuro que secondary-dark */
+/* Estilo do botão primário (SIM) */
+.primaryButton {
+  background-color: var(--color-accent-primary);
+  color: var(--color-background-primary);
+  border-color: var(--color-accent-primary);
+}
+
+.primaryButton:hover {
+  background-color: #9cd41e; /* Cor hover */
+  border-color: #9cd41e;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(182, 238, 34, 0.6);
+}
+
+/* Estilo do botão secundário (NÃO) */
+.secondaryButton {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+.secondaryButton:hover {
+  background-color: var(--color-border);
+  border-color: var(--color-border);
 }
 
 /* Animações */
@@ -80,51 +103,48 @@
 
 /* --- ESTILOS PARA O TEMA CLARO DENTRO DO MODAL --- */
 body.light-theme .modal {
-  background-color: var(--color-background-secondary); /* #dee0e3 */
-  color: var(--color-text-primary); /* #1f2120 */
+  background-color: var(--color-background-secondary);
+  color: var(--color-text-primary);
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
 }
 
-body.light-theme .title {
-  color: var(--color-accent-primary); /* #afe128 */
+body.light-theme .question {
+    color: var(--color-text-primary);
 }
 
-body.light-theme .message {
-  color: var(--color-text-secondary); /* rgba(0,0,0,0.7) */
+body.light-theme .primaryButton {
+  background-color: var(--color-accent-primary);
+  color: var(--color-text-primary); /* Texto escuro no tema claro */
+  border-color: var(--color-accent-primary);
 }
 
-body.light-theme .disclaimer {
-  color: var(--color-text-tertiary); /* rgba(0,0,0,0.5) */
-}
-
-body.light-theme .confirmButton {
-  background-color: var(--color-accent-primary); /* #afe128 */
-  color: var(--color-background-primary); /* #e1e3e4 */
-  box-shadow: 0 3px 10px rgba(175, 225, 40, 0.4);
-}
-
-body.light-theme .confirmButton:hover {
+body.light-theme .primaryButton:hover {
   background-color: #9bd228;
-  box-shadow: 0 5px 15px rgba(175, 225, 40, 0.6);
+  border-color: #9bd228;
 }
+
+body.light-theme .secondaryButton {
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+}
+
+body.light-theme .secondaryButton:hover {
+    background-color: rgba(0,0,0,0.1); /* Um pouco mais escuro */
+}
+
 
 /* Responsividade */
 @media (max-width: 480px) {
   .modal {
-    padding: 20px;
-    gap: 10px;
+    padding: 30px 20px;
+    gap: 20px;
   }
-  .title {
+  .question {
     font-size: 1.5rem;
   }
-  .message {
-    font-size: 1rem;
-  }
-  .disclaimer {
-    font-size: 0.8rem;
-  }
-  .confirmButton {
-    padding: 10px 20px;
+  .primaryButton,
+  .secondaryButton {
+    padding: 12px 15px;
     font-size: 1rem;
   }
 }
