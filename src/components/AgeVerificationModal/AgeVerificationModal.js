@@ -7,22 +7,31 @@ const LOCAL_STORAGE_KEY = 'superOddsAgeConfirmed';
 
 const AgeVerificationModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  // Estado inicial do tema, pode ser 'dark' ou 'light' como fallback
+  const [theme, setTheme] = useState('dark'); 
+  // NOVO: Estado para controlar se o componente já está montado no cliente
+  const [mounted, setMounted] = useState(false); 
 
   useEffect(() => {
+    // Define mounted como true assim que o componente é montado no lado do cliente
+    setMounted(true);
+
     const ageConfirmed = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!ageConfirmed) {
       setIsOpen(true);
     }
-  }, []);
+
+    // Lê o tema do localStorage apenas no cliente
+    const storedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(storedTheme);
+  }, []); // Este useEffect roda apenas uma vez no cliente, após a montagem inicial
 
   const handleConfirmAge = () => {
     localStorage.setItem(LOCAL_STORAGE_KEY, 'true');
     setIsOpen(false);
   };
 
-  // Função para quando o usuário clica em "NÃO"
   const handleDenyAge = () => {
-    // Redireciona o usuário para um site externo, como o Google.
     window.location.href = 'https://www.google.com';
   };
 
@@ -30,11 +39,14 @@ const AgeVerificationModal = () => {
     return null;
   }
 
+  // A logo só será renderizada corretamente após a montagem no cliente
+  const logoSrc = theme === 'dark' ? '/logobranca.png' : '/logopreta.svg';
+
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        {/* Adicione o seu logo aqui. Lembre-se de colocar o logo na pasta /public */}
-        <img src="/age.png" alt="Super Odds Logo" className={styles.logo} />
+        {/* A logo é renderizada condicionalmente, mas a fonte da verdade é o estado 'theme' */}
+        {mounted && <img src={logoSrc} alt="Super Odds Logo" className={styles.logo} />}
         
         <h2 className={styles.question}>Você tem mais de 18 anos?</h2>
         

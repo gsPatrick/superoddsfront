@@ -15,17 +15,22 @@ const Header = ({
   hideExpired,
   setHideExpired,
 }) => {
+  // Estado inicial do tema, pode ser 'dark' ou 'light' como fallback para a renderização inicial (SSR/SSG)
+  const [theme, setTheme] = useState('dark'); 
+  // NOVO: Estado para controlar se o componente já está montado no cliente
+  const [mounted, setMounted] = useState(false);
+
   const [scrolled, setScrolled] = useState(false);
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const [bookmakers, setBookmakers] = useState([]);
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') || 'dark';
-    }
-    return 'dark';
-  });
   
   useEffect(() => {
+    // Define mounted como true assim que o componente é montado no lado do cliente
+    setMounted(true);
+    // Lê o tema do localStorage apenas no cliente
+    const storedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(storedTheme);
+
     const fetchProviders = async () => {
       try {
         const response = await fetch('https://superodds-backend.zjbwih.easypanel.host/api/super-odds/providers');
@@ -38,13 +43,16 @@ const Header = ({
       }
     };
     fetchProviders();
-  }, []);
+  }, []); // Este useEffect roda apenas uma vez no cliente, após a montagem inicial
 
   useEffect(() => {
+    // Só executa se o componente estiver montado no cliente
+    if (!mounted) return;
+
     document.body.classList.remove('dark-theme', 'light-theme');
     document.body.classList.add(`${theme}-theme`);
     localStorage.setItem('theme', theme);
-  }, [theme]);
+  }, [theme, mounted]); // Depende de 'theme' e 'mounted' para garantir a execução correta
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -64,18 +72,19 @@ const Header = ({
     setSelectedBookmaker('');
     setOddRange(20);
     setSortBy('');
-    // MUDANÇA: Alterado para 'false' para que odds expiradas apareçam ao limpar filtros
     setHideExpired(false); 
   };
+
+  // A logo só será renderizada corretamente após a montagem no cliente
+  const logoSrc = theme === 'dark' ? '/logobranca.png' : '/logopreta.svg';
 
   return (
     <>
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
         <div className={styles.headerContent}>
           <div className={styles.branding}>
-            {/* Logo à esquerda, nome à direita */}
-            <img src="/age.png" alt="Super Odds Logo" className={styles.logo} />
-            <h1 className={styles.title}>Super Odds</h1>
+            {/* A logo é renderizada condicionalmente, mas a fonte da verdade é o estado 'theme' */}
+            {mounted && <img src={logoSrc} alt="Super Odds Logo" className={styles.logo} />}
           </div>
           
           <div className={styles.headerActions}>
@@ -143,4 +152,4 @@ const Header = ({
   );
 };
 
-export default Header;  
+export default Header;
