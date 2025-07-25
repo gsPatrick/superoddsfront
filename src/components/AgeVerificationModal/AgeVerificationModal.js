@@ -34,7 +34,7 @@ const AgeVerificationModal = () => {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         {/* Adicione o seu logo aqui. Lembre-se de colocar o logo na pasta /public */}
-        <img src="/logo.svg" alt="Super Odds Logo" className={styles.logo} />
+        <img src="/age.png" alt="Super Odds Logo" className={styles.logo} />
         
         <h2 className={styles.question}>Você tem mais de 18 anos?</h2>
         

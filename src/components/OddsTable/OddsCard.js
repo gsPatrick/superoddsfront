@@ -7,12 +7,13 @@ import { FaRegClock, FaShareAlt } from 'react-icons/fa';
 const OddsCard = ({ oddData }) => {
   const [timeLeft, setTimeLeft] = useState('');
   const [isExpired, setIsExpired] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false); // NOVO ESTADO para feedback de cópia
 
   // PONTO CRÍTICO: Desestruturando todas as propriedades necessárias do oddData
   const {
     event,
     time: expireTimestamp,
-    shareLink,
+    // shareLink, // Removido, não será mais necessário para navegação
     matchInfo,
     details,
     oldOdd,
@@ -21,7 +22,7 @@ const OddsCard = ({ oddData }) => {
     qualityRating,
     bookmakerLogo,
     bookmakerName,
-    bookmakerLink, // Esta variável precisa ser recebida aqui
+    bookmakerLink, // Esta variável precisa ser recebida aqui e será usada para copiar
   } = oddData;
 
   useEffect(() => {
@@ -67,6 +68,20 @@ const OddsCard = ({ oddData }) => {
 
   const [team1, team2] = getTeamNames(event);
 
+  // NOVO: Função para copiar o link
+  const handleShareClick = async () => {
+    if (bookmakerLink) {
+      try {
+        await navigator.clipboard.writeText(bookmakerLink);
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000); // Esconde a mensagem após 2 segundos
+      } catch (err) {
+        console.error('Falha ao copiar o link: ', err);
+        // Opcional: Adicionar um feedback de erro para o usuário
+      }
+    }
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -79,9 +94,11 @@ const OddsCard = ({ oddData }) => {
           <span className={`${styles.time} ${isExpired ? styles.expired : ''}`}>
             {!isExpired && <FaRegClock className={styles.icon} />} {timeLeft}
           </span>
-          <a href={shareLink} target="_blank" rel="noopener noreferrer" className={styles.shareButton} aria-label="Compartilhar evento">
+          {/* MUDANÇA AQUI: de <a> para <button> e onClick */}
+          <button onClick={handleShareClick} className={styles.shareButton} aria-label="Copiar link">
             <FaShareAlt className={styles.icon} />
-          </a>
+            {copySuccess && <span className={styles.copyFeedback}>Copiado!</span>} {/* Feedback de cópia */}
+          </button>
         </div>
       </div>
 

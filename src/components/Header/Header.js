@@ -73,6 +73,8 @@ const Header = ({
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
         <div className={styles.headerContent}>
           <div className={styles.branding}>
+            {/* Logo à esquerda, nome à direita */}
+            <img src="/age.png" alt="Super Odds Logo" className={styles.logo} />
             <h1 className={styles.title}>Super Odds</h1>
           </div>
           
@@ -141,4 +143,4 @@ const Header = ({
   );
 };
 
-export default Header;
+export default Header;  

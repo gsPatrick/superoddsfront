@@ -5,12 +5,9 @@ import OddsCard from './OddsCard';
 import styles from './OddsTable.module.css';
 import { BOOKMAKER_DATA } from '../../constants/bookmakers';
 
-const ITEMS_PER_PAGE = 9;
-
 const OddsTable = ({ selectedBookmaker, oddRange, sortBy, hideExpired }) => {
   const [allOdds, setAllOdds] = useState([]);
   const [filteredOdds, setFilteredOdds] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -62,7 +59,6 @@ const OddsTable = ({ selectedBookmaker, oddRange, sortBy, hideExpired }) => {
             qualityRating: Math.min(95, (odd.boostedOdd / odd.originalOdd - 1) * 200 + 70),
             bookmakerLogo: BOOKMAKER_DATA[odd.providerId]?.logoUrl || '',
             bookmakerName: odd.provider,
-            // PONTO CRÍTICO: Garante que o link da API seja passado para o card
             bookmakerLink: odd.link, 
             eventDate: new Date(odd.gameTimestamp),
             expireDate: new Date(odd.expireAtTimestamp),
@@ -82,60 +78,60 @@ const OddsTable = ({ selectedBookmaker, oddRange, sortBy, hideExpired }) => {
   }, []);
 
   useEffect(() => {
-    let updatedOdds = [...allOdds];
+    let tempOdds = [...allOdds];
+    const now = new Date();
 
+    // 1. Aplicar filtros (casa de apostas, faixa de odd)
     if (selectedBookmaker) {
-      updatedOdds = updatedOdds.filter(odd => odd.bookmakerName === selectedBookmaker);
+      tempOdds = tempOdds.filter(odd => odd.bookmakerName === selectedBookmaker);
     }
     
     if (oddRange) {
-        updatedOdds = updatedOdds.filter(odd => parseFloat(odd.bestOdd) <= oddRange);
+        tempOdds = tempOdds.filter(odd => parseFloat(odd.bestOdd) <= oddRange);
     }
     
-    if (hideExpired) {
-      const now = new Date();
-      updatedOdds = updatedOdds.filter(odd => odd.expireDate > now);
-    }
-    
-    if (sortBy === 'maiorOdd') {
-      updatedOdds.sort((a, b) => parseFloat(b.bestOdd) - parseFloat(a.bestOdd));
-    } else if (sortBy === 'proximoEvento') {
-      updatedOdds.sort((a, b) => a.eventDate - b.eventDate);
-    }
+    // 2. Adicionar propriedade 'isExpired' para facilitar a ordenação
+    tempOdds = tempOdds.map(odd => ({
+        ...odd,
+        isExpired: odd.expireDate <= now
+    }));
 
-    setFilteredOdds(updatedOdds);
-    setCurrentPage(1);
+    // 3. Lidar com 'hideExpired': filtrar completamente se marcado
+    if (hideExpired) {
+      tempOdds = tempOdds.filter(odd => !odd.isExpired);
+    }
+    
+    // 4. Ordenação complexa: priorizar não expiradas, depois aplicar o sortBy
+    tempOdds.sort((a, b) => {
+      // Prioridade 1: Não expiradas vêm sempre antes
+      if (a.isExpired && !b.isExpired) return 1; // 'a' expirou, 'b' não, então 'a' vem depois
+      if (!a.isExpired && b.isExpired) return -1; // 'a' não expirou, 'b' sim, então 'a' vem antes
+
+      // Prioridade 2: Se ambos têm o mesmo status de expiração, aplicar o sortBy
+      if (sortBy === 'maiorOdd') {
+        return parseFloat(b.bestOdd) - parseFloat(a.bestOdd); // Maior odd primeiro
+      } else if (sortBy === 'proximoEvento') {
+        return a.eventDate - b.eventDate; // Evento mais próximo primeiro
+      } else { // Padrão: 'Expira em breve'
+        return a.expireDate - b.expireDate; // Expiração mais próxima primeiro
+      }
+    });
+
+    setFilteredOdds(tempOdds);
   }, [selectedBookmaker, oddRange, sortBy, hideExpired, allOdds]);
 
-  const totalPages = Math.ceil(filteredOdds.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentOdds = filteredOdds.slice(startIndex, endIndex);
-
-  const goToNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  const goToPreviousPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  
   if (loading) return <p className={styles.message}>Carregando as melhores odds...</p>;
   if (error) return <p className={styles.message}>Erro ao carregar: {error}</p>;
-  if (currentOdds.length === 0) return <p className={styles.message}>Nenhuma super odd encontrada com os filtros selecionados.</p>;
+  if (filteredOdds.length === 0) return <p className={styles.message}>Nenhuma super odd encontrada com os filtros selecionados.</p>;
 
   return (
     <section className={styles.oddsTableSection}>
       <div className={styles.cardsGrid}>
-        {currentOdds.map((odd) => (
+        {filteredOdds.map((odd) => ( // Renderiza todas as odds filtradas/ordenadas
           <OddsCard key={odd.id} oddData={odd} />
         ))}
       </div>
-
-      <div className={styles.pagination}>
-        <button onClick={goToPreviousPage} disabled={currentPage === 1} className={styles.paginationButton}>
-          Anterior
-        </button>
-        <span className={styles.pageInfo}>Página {currentPage} de {totalPages || 1}</span>
-        <button onClick={goToNextPage} disabled={currentPage === totalPages || totalPages === 0} className={styles.paginationButton}>
-          Próximo
-        </button>
-      </div>
+      {/* Paginação removida */}
     </section>
   );
 };

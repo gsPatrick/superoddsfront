@@ -99,6 +99,7 @@
   justify-content: center;
   border-radius: 50%;
   transition: background-color 0.2s ease;
+  position: relative; /* Adicionado para posicionar o feedback de cópia */
 }
 
 .shareButton:hover {
@@ -109,6 +110,31 @@
   fill: var(--color-text-secondary);
   width: 18px;
   height: 18px;
+}
+
+/* NOVO ESTILO: Feedback de cópia */
+.copyFeedback {
+  position: absolute;
+  top: -25px; /* Ajuste a posição vertical conforme necessário */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  animation: fadeInOut 2s forwards; /* Animação para aparecer e desaparecer */
+  pointer-events: none; /* Garante que não interfira com cliques no botão */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(0px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(-5px); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(-5px); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
 }
 
 .matchInfo {
@@ -405,6 +431,11 @@ body.light-theme .actionButton:hover {
   .qualityContainer {
     width: 40%;
   }
+  .copyFeedback { /* Ajuste do feedback para telas menores */
+    font-size: 0.65rem;
+    top: -20px;
+    padding: 3px 6px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -434,5 +465,10 @@ body.light-theme .actionButton:hover {
   }
   .qualityContainer {
     width: 50%;
+  }
+  .copyFeedback { /* Ajuste do feedback para telas menores */
+    font-size: 0.6rem;
+    top: -18px;
+    padding: 2px 5px;
   }
 }

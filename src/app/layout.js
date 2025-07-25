@@ -7,7 +7,7 @@ import AgeVerificationModal from '../components/AgeVerificationModal/AgeVerifica
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata = {
-  title: 'Odds Checker - As Melhores Odds',
+  title: 'Super Odds- As Melhores Odds',
   description: 'Compare as melhores odds de apostas esportivas diariamente.',
 };
 

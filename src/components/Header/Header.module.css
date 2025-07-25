@@ -32,8 +32,16 @@
 .branding {
   display: flex;
   align-items: center;
+  gap: 10px; /* Espaçamento entre a logo e o título */
 }
 
+/* Estilo para a logo - ALTURA AUMENTADA AQUI */
+.logo {
+  height: 48px; /* Ajuste a altura conforme necessário */
+  width: auto; /* Mantém a proporção */
+}
+
+/* Estilo para o título */
 .title {
   font-size: 1.8rem;
   font-weight: 700;
@@ -305,7 +313,7 @@ body.light-theme .applyButton {
   .header {
     padding: 10px 15px;
   }
-  .title {
+  .title { /* Restaura o estilo para o título */
     font-size: 1.5rem;
   }
   .filterToggleButton span {
@@ -327,7 +335,7 @@ body.light-theme .applyButton {
   .filtersContainer.open {
     transform: translateX(-100%);
   }
-  .title {
+  .title { /* Restaura o estilo para o título */
     font-size: 1.3rem;
   }
 }
