@@ -31,7 +31,7 @@ const Hero = () => {
         {/* Todos os elementos de texto (logo, headline, subheadline) foram removidos conforme solicitação */}
 
         <a
-          href="https://superodds.ai" // Link para superodds.ai
+          href="https://t.me/superoddsai" // Link para superodds.ai
           target="_blank"
           rel="noopener noreferrer"
           className={styles.ctaButton}

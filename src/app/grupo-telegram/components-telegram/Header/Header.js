@@ -29,12 +29,12 @@ const Header = () => {
         </Link>
         
         <a
-          href="https://superodds.ai" // Link do site SuperOdds.ai
+          href="https://t.me/superoddsai" // Link do site SuperOdds.ai
           target="_blank"
           rel="noopener noreferrer"
           className={styles.ctaButton}
         >
-          QUERO VER AS SUPER ODDS
+          ENTRAR NO GRUPO
         </a>
       </div>
     </header>

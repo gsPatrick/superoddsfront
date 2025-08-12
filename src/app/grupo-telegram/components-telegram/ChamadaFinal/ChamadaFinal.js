@@ -75,12 +75,12 @@ const ChamadaFinal = () => {
           Na SuperOdds.ai, você acessa em segundos as melhores cotações do mercado — em tempo real — com a segurança e praticidade que você merece.
         </p>
         <a
-          href="https://superodds.ai" // Link atualizado para o site
+          href="https://t.me/superoddsai" // Link atualizado para o site
           target="_blank"
           rel="noopener noreferrer"
           className={styles.ctaButton}
         >
-          <span>👉 ACESSAR SUPERODDS.AI</span>
+          <span>👉 ENTRAR NO GRUPO</span>
         </a>
       </div>
     </section>

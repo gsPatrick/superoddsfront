@@ -74,12 +74,12 @@ const Beneficios = () => {
           ))}
         </div>
         <a
-          href="https://superodds.ai" // Link atualizado
+          href="https://t.me/superoddsai" // Link atualizado
           target="_blank"
           rel="noopener noreferrer"
           className={styles.beneficiosCtaButton}
         >
-          👉 ACESSAR SUPERODDS.AI
+          👉 ENTRAR NO GRUPO
         </a>
       </div>
     </section>

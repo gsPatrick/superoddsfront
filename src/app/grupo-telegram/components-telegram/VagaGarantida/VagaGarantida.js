@@ -101,12 +101,12 @@ const VagaGarantida = () => {
              <h2 className={styles.title}>PRONTO PARA ACESSAR!</h2>
              <p className={styles.subtitle}>Você está a um clique das melhores cotações do mercado. Não perca mais tempo e comece a apostar com inteligência.</p>
              <a
-                href="https://superodds.ai" // Link atualizado
+                href="https://t.me/superoddsai" // Link atualizado
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.finalCtaButton}
               >
-                👉 ACESSAR SUPERODDS.AI
+                👉 ENTRAR NO GRUPO
               </a>
           </div>
         )}

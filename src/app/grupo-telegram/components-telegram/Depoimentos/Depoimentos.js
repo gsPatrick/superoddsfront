@@ -112,12 +112,12 @@ const Depoimentos = () => {
                 Não perca mais tempo comparando cotações. As melhores oportunidades estão esperando por você.
             </h3>
             <a
-              href="https://superodds.ai" // Link do site
+              href="https://t.me/superoddsai" // Link do site
               target="_blank"
               rel="noopener noreferrer"
               className={styles.ctaButton}
             >
-              👉 ACESSAR SUPERODDS.AI
+              👉 ENTRAR NO GRUPO
             </a>
         </div>
       </div>

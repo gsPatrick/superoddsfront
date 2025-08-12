@@ -81,12 +81,12 @@ const OQueTem = () => {
             ))}
           </ul>
            <a
-              href="https://superodds.ai" // Link atualizado
+              href="https://t.me/superoddsai" // Link atualizado
               target="_blank"
               rel="noopener noreferrer"
               className={styles.ctaButton}
             >
-              ACESSE AGORA
+              ENTRAR NO GRUPO
             </a>
         </div>
       </div>

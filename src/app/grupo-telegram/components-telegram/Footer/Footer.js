@@ -22,9 +22,6 @@ const Footer = () => {
         
         <div className={styles.disclaimers}>
           {/* Nova copy para os disclaimers */}
-          <p className={styles.warning18}>
-            ⚠️ Atenção: Apostas são para maiores de 18 anos.
-          </p>
           <p className={styles.responsibleGaming}>
             🚫 Apostar não é investimento. Jogue com responsabilidade.
           </p>

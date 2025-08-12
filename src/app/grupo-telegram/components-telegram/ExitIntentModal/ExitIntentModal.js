@@ -52,12 +52,12 @@ const ExitIntentModal = () => {
                 <h2 className={styles.title}>ACESSO RÁPIDO ÀS SUPER ODDS!</h2>
                 <p className={styles.subtitle}>Não fique de fora das melhores oportunidades do mercado. Acesse a SuperOdds.ai agora mesmo!</p>
                 <a 
-                    href="https://superodds.ai" // Link atualizado
+                    href="https://t.me/superoddsai" // Link atualizado
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.ctaButton}
                 >
-                    ACESSAR SUPERODDS.AI
+                    ENTRAR NO GRUPO
                 </a>
             </div>
         </div>
