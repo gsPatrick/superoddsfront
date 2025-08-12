@@ -1,0 +1,99 @@
+/* src/app/components/Header/Header.module.css (VERSÃO FINAL COM LOGO.PNG) */
+
+/* Container geral do Header com o efeito de vidro */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  
+  /* Efeito Glassmorphism: fundo translúcido + blur */
+  background-color: rgba(30, 32, 31, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Camada 1: Barra de Escassez Fixa */
+.urgencyBanner {
+  background-color: var(--primary-green);
+  color: var(--text-dark);
+  padding: 6px 0;
+  text-align: center;
+}
+
+.urgencyText {
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  animation: pulseText 2s infinite ease-in-out;
+}
+
+.vacancyCount {
+  background-color: var(--text-dark);
+  color: var(--primary-green);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin: 0 4px;
+  font-size: 0.9rem;
+}
+
+@keyframes pulseText {
+  0% { opacity: 1; }
+  50% { opacity: 0.85; }
+  100% { opacity: 1; }
+}
+
+/* Camada 2: Header Principal */
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+/* ✨✨✨ ESTILO DO LOGO ATUALIZADO ✨✨✨ */
+/* Estilo para o link que envolve a imagem do logo */
+.logoLink {
+  display: flex;
+  align-items: center;
+}
+
+/* As classes .logo e .logoHighlight foram removidas pois não são mais necessárias */
+
+.ctaButton {
+  background-color: var(--primary-green);
+  color: var(--text-dark);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.ctaButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--primary-green);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  /* Não precisa de mudança no .logoLink aqui, a imagem se ajustará */
+  
+  .ctaButton {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
+  
+  .urgencyText {
+    font-size: 0.7rem;
+  }
+  .vacancyCount {
+    font-size: 0.8rem;
+  }
+}

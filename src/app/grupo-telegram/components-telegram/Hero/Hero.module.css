@@ -1,0 +1,113 @@
+/* src/app/components/Hero/Hero.module.css (REVISADO PARA IMAGEM COMPLETA E APENAS BOTÃO) */
+.heroSection {
+  min-height: 100vh;
+  display: flex; /* Mantido para alinhamento geral */
+  align-items: center; /* Alinha o heroContent verticalmente no centro da section */
+  justify-content: flex-start; /* Alinha o heroContent horizontalmente para a esquerda */
+  background-image: url('/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center center; /* Centraliza a imagem para que apareça mais completa */
+  position: relative;
+  padding-top: 80px; /* Espaço para o header fixo */
+  overflow: hidden; /* Garante que nada transborde */
+}
+
+.heroSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Gradiente sutil para garantir contraste do botão, sem cobrir muito a imagem.
+     Escurece um pouco mais à esquerda, onde o botão estará. */
+  background: linear-gradient(to right, rgba(30, 32, 31, 0.4) 0%, transparent 80%);
+  z-index: 1;
+}
+
+.heroContent {
+  position: absolute; /* Posiciona o container do botão de forma absoluta */
+  bottom: 25%; /* Ajustado para subir o botão um pouco (25% da parte inferior da section) */
+  left: 5%; /* Alinha o botão no lado esquerdo da tela */
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Garante que o botão fique alinhado à esquerda dentro do container */
+  text-align: left; /* Garante que o texto do botão, se multi-linha, fique à esquerda */
+  max-width: 400px; /* Limita a largura do container para que o botão fique na área livre da imagem */
+  width: 100%; /* Garante que max-width seja respeitado */
+}
+
+/* Os estilos de .logo, .headline e .subheadline foram removidos. */
+
+.ctaButton {
+  background-color: var(--primary-green);
+  color: var(--text-dark);
+  padding: 20px 40px;
+  border-radius: 12px; /* Mantém o border-radius padrão */
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+  border: none;
+  cursor: pointer;
+  /* Brilho inicial e sombra cinematográfica */
+  box-shadow: 0 0 30px rgba(183, 238, 35, 0.6), 0 0 60px rgba(183, 238, 35, 0.3);
+  animation: pulseCinematic 2.5s infinite ease-in-out; /* Nova animação de pulso mais suave */
+}
+
+.ctaButton:hover {
+  transform: scale(1.05);
+  /* Brilho mais intenso no hover */
+  box-shadow: 0 0 40px var(--primary-green), 0 0 80px rgba(183, 238, 35, 0.5);
+  animation-play-state: paused; /* Pausa a animação no hover */
+}
+
+/* Nova animação de pulso cinematográfica */
+@keyframes pulseCinematic {
+  0% { 
+    transform: scale(1); 
+    box-shadow: 0 0 30px rgba(183, 238, 35, 0.6), 0 0 60px rgba(183, 238, 35, 0.3);
+  }
+  50% { 
+    transform: scale(1.03); 
+    box-shadow: 0 0 45px var(--primary-green), 0 0 90px rgba(183, 238, 35, 0.4);
+  }
+  100% { 
+    transform: scale(1); 
+    box-shadow: 0 0 30px rgba(183, 238, 35, 0.6), 0 0 60px rgba(183, 238, 35, 0.3);
+  }
+}
+
+
+/* =========================================== */
+/* ✨ MUDANÇAS PARA O MOBILE ESTÃO AQUI ✨ */
+/* =========================================== */
+@media (max-width: 768px) {
+  .heroSection {
+    /* No mobile, a imagem é mais importante de aparecer centralizada */
+    background-position: center center; 
+  }
+
+  .heroSection::before {
+    /* Gradiente mais forte de baixo para cima no mobile, para dar contraste ao botão */
+    background: linear-gradient(to top, var(--dark-bg) 25%, transparent 90%), 
+                rgba(30, 32, 31, 0.7);
+  }
+  
+  .heroContent {
+    left: 50%; /* Centraliza o container do botão horizontalmente */
+    transform: translateX(-50%); /* Ajusta para centralizar */
+    bottom: 10%; /* Mais para baixo no mobile, para não cobrir o laptop */
+    align-items: center; /* Centraliza o botão dentro do container */
+    text-align: center;
+    max-width: 90%; /* Ocupa mais largura no mobile */
+  }
+  
+  .ctaButton {
+    padding: 15px 30px;
+    font-size: 1rem;
+    width: auto;
+    text-align: center;
+  }
+}

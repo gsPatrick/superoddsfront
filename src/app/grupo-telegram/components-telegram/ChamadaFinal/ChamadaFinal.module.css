@@ -1,0 +1,179 @@
+/* src/app/components/ChamadaFinal/ChamadaFinal.module.css (VERSÃO FINAL COM CONTEXTO) */
+.section {
+  background-color: var(--dark-bg);
+  color: var(--text-light);
+  padding: 120px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- CONTADOR COM CONTEXTO --- */
+.bgCounterContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  opacity: 0.15; /* Aplicar opacidade no container todo */
+}
+
+.bgNumber {
+  font-size: 28vw;
+  font-weight: 900;
+  color: var(--primary-green);
+  -webkit-text-stroke: 2px rgba(183, 238, 35, 0.5);
+  text-shadow: 0 0 30px rgba(183, 238, 35, 0.2);
+}
+
+.bgText {
+  font-size: 5vw;
+  font-weight: 700;
+  color: var(--primary-green);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: -2vw; /* Puxa o texto para mais perto do número */
+}
+
+/* O resto do CSS permanece o mesmo... */
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--primary-green);
+  border-radius: 50%;
+  opacity: 0;
+  animation: float 20s linear infinite;
+  filter: blur(1px);
+}
+.particle:nth-child(1) { top: 10%; left: 5%; animation-delay: -2s; }
+.particle:nth-child(2) { top: 20%; left: 90%; animation-delay: -4s; transform: scale(0.8); }
+.particle:nth-child(3) { top: 80%; left: 85%; animation-delay: -6s; transform: scale(1.2); }
+.particle:nth-child(4) { top: 90%; left: 10%; animation-delay: -8s; }
+.particle:nth-child(5) { top: 50%; left: 50%; animation-delay: -10s; transform: scale(0.9); }
+.particle:nth-child(6) { top: 30%; left: 20%; animation-delay: -12s; }
+.particle:nth-child(7) { top: 60%; left: 70%; animation-delay: -14s; transform: scale(1.1); }
+.particle:nth-child(8) { top: 5%; left: 30%; animation-delay: -16s; }
+.particle:nth-child(9) { top: 95%; left: 60%; animation-delay: -18s; }
+.particle:nth-child(10) { top: 40%; left: 80%; animation-delay: -20s; transform: scale(0.7); }
+
+@keyframes float {
+  0% { transform: translateY(50px) scale(var(--scale, 1)); opacity: 0; }
+  25% { opacity: 0.6; }
+  50% { transform: translateY(-50px) scale(var(--scale, 1)); }
+  75% { opacity: 0.6; }
+  100% { transform: translateY(-150px) scale(var(--scale, 1)); opacity: 0; }
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 800px;
+}
+
+.alertTag {
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: rgba(41, 40, 41, 0.8);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--primary-green);
+  text-transform: uppercase;
+  color: var(--primary-green);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.alertIcon {
+    font-size: 1rem;
+    display: inline-block;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.title {
+  font-size: 3.2rem;
+  font-weight: 900;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #fff 45%, #888 55%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 650px;
+  color: #ccc;
+}
+
+.ctaButton {
+  background-color: var(--primary-green);
+  color: var(--text-dark);
+  padding: 22px 45px;
+  border-radius: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  transition: transform 0.2s ease-in-out;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 700px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(183, 238, 35, 0.6);
+  animation: buttonPulse 1.5s infinite ease-in-out;
+}
+.ctaButton span {
+    position: relative;
+    z-index: 2;
+}
+.ctaButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+.ctaButton:hover::before {
+    left: 100%;
+}
+@keyframes buttonPulse {
+    50% { transform: scale(1.04); box-shadow: 0 0 35px rgba(183, 238, 35, 0.8); }
+}
+
+@media (max-width: 768px) {
+  .bgNumber { font-size: 40vw; }
+  .bgText { font-size: 8vw; margin-top: -4vw; }
+  .title {
+    font-size: 2.4rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
+  .ctaButton {
+    font-size: 1.1rem;
+    padding: 20px 30px;
+  }
+}

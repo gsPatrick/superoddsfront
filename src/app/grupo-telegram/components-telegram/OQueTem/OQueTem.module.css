@@ -1,0 +1,183 @@
+/* src/app/components/OQueTem/OQueTem.module.css (IMAGEM SEM FUNDO E COM ANIMAÇÃO) */
+.section {
+  background-color: var(--dark-bg);
+  padding: 120px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--primary-green) 0%, rgba(183, 238, 35, 0) 60%);
+  opacity: 0.05;
+  filter: blur(80px);
+}
+
+.gridWrapper {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  align-items: center;
+  gap: 5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.image {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  min-height: 600px;
+  object-fit: cover;
+  /* Removido border-radius e box-shadow para manter a transparência */
+  /* Adicionada animação suave de movimento no hover */
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.image:hover {
+  transform: translateY(-10px) rotate(2deg) scale(1.05);
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.highlight {
+  color: var(--primary-green);
+  text-shadow: 0 0 10px rgba(183, 238, 35, 0.5);
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #ccc;
+  max-width: 95%;
+  margin-bottom: 1rem;
+}
+
+.featureList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  background-color: var(--dark-secondary);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #292829;
+}
+
+.icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  background-color: rgba(183, 238, 35, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.featureTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--text-light);
+}
+
+.featureText {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #aaa;
+}
+
+.ctaButton {
+  background: var(--primary-green);
+  color: var(--text-dark);
+  padding: 20px 40px;
+  border-radius: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(183, 238, 35, 0.4);
+  animation: pulse 2s infinite;
+  margin-top: 1.5rem;
+  align-self: flex-start;
+}
+
+.ctaButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px var(--primary-green);
+  animation-play-state: paused;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 992px) {
+  .gridWrapper {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .imageContainer {
+    order: 1;
+  }
+  .contentContainer {
+    order: 2;
+    text-align: center;
+    align-items: center;
+  }
+  .title {
+    font-size: 2.2rem;
+  }
+  .description {
+    max-width: 100%;
+  }
+  .featureItem {
+    text-align: left;
+  }
+  .ctaButton {
+    align-self: center;
+  }
+  
+  .image {
+    max-width: 350px;
+    min-height: 500px;
+  }
+  
+  /* Reduzir animação no mobile para melhor performance */
+  .image:hover {
+    transform: translateY(-5px) scale(1.02);
+  }
+}
