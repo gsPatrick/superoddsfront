@@ -20,7 +20,7 @@ const Header = () => {
         {/* O logo em texto foi substituído por este Link com a Imagem */}
         <Link href="/" className={styles.logoLink}>
           <Image
-            src="/images/logo.png" // Caminho a partir da pasta 'public'
+            src="/images/logodois.png" // Caminho a partir da pasta 'public'
             alt="Super Odds Logo"
             width={80} // IMPORTANTE: Ajuste para a largura da sua logo
             height={80}  // IMPORTANTE: Ajuste para a altura da sua logo

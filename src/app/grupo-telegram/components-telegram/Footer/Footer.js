@@ -13,7 +13,7 @@ const Footer = () => {
         
         <Link href="/">
           <Image
-            src="/images/logo.png" // Caminho a partir da pasta 'public'
+            src="/images/logodois.png" // Caminho a partir da pasta 'public'
             alt="Super Odds Logo"
             width={200}
             height={200}
